@@ -97,6 +97,7 @@ describe.only("#mongobdTest", function(){
     })
 })
 
+// root - level suite
 after(function(done){
     closeConnection().then(()=>console.log("connection closed"))
     done()
