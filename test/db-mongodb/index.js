@@ -5,6 +5,7 @@ const { expect } = require("chai")
 
 
 
+// root level suite
 connect()
     .then(()=>{
         console.log("connected to database testing...")
