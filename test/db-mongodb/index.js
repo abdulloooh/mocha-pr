@@ -98,6 +98,6 @@ describe.only("#mongobdTest", function(){
 })
 
 after(function(done){
-    closeConnection().then(()=>console.log("connection cloosed"))
+    closeConnection().then(()=>console.log("connection closed"))
     done()
 });
