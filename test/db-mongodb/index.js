@@ -15,7 +15,7 @@ mongoUnit.start().then(() => {
   run()
 })
 
-describe.only("#mongobdTest", function(){
+describe("#mongobdTest", function(){
 
     before((done) => {
         init()

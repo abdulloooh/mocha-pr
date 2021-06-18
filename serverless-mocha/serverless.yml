@@ -1,0 +1,23 @@
+org: abdulloooh
+app: aws-node-project
+service: serverless-mocha
+
+frameworkVersion: "^2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: "20201221"
+
+plugins:
+  - serverless-mocha-plugin
+
+functions:
+  currentDate:
+    handler: date/handler.endpoint
+  currentTime:
+    handler: handler.endpoint
+    events:
+      - http:
+          path: ping
+          method: get

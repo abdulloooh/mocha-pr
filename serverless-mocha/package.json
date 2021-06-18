@@ -1,0 +1,10 @@
+{
+  "name": "serverless-mocha",
+  "version": "1.0.0",
+  "description": "Example demonstrates how to setup a simple HTTP GET endpoint",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-mocha-plugin": "^1.12.0"
+  }
+}
