@@ -3,20 +3,23 @@ const User = require("../../src/db/mongodb/models/user")
 const {addUser,getUsers} = require("../../src/db/mongodb/index")
 const { expect } = require("chai")
 
-describe.only("#mongobdTest", function(){
-    before(function(done){
-        connect()
-            .then(()=>{console.log("connected to database testing...")})
-            .catch((err)=>done(err))
+
+
+connect()
+    .then(()=>{
+        console.log("connected to database testing...")
 
         User.deleteMany(function(err) { 
             if(err) return done(err)
 
             console.log('collection removed') 
             console.log("Tests starting...")
-            done()
+            
+            run()
         });
     })
+
+describe.only("#mongobdTest", function(){
 
     describe("#AddUser", function(){
         context("#Add valid user with name", function(){
