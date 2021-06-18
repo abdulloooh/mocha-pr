@@ -1,6 +1,10 @@
 const {expect} = require("chai")
 const md5Promise = require("../src/md5-promise")
 
+setTimeout(() => {
+    console.log("tests delayed for 5s")    
+    run()
+}, 5000);
 
 describe("#md5AsyncAwait", function(){
     context("with string arguments", function(){
@@ -30,4 +34,13 @@ describe("#md5AsyncAwait", function(){
  * This command uses -— to pipe the command options and arguments to the underlying mocha CLI binary. 
  * The -f flag instructs Mocha.js to run only tests that contain the given string, 
  * which in this case is promiseMd5.
+ */
+
+// npm test -- --delay
+// npm test -- --delay --f "Promise"
+/**
+ * Root-level hooks apply to all test files regardless of where they are defined. 
+ * This is because Mocha implicitly creates a describe() block, called the root suite.
+ * 
+ * Same thing we have root level hooks in any test file, it applies to all files
  */
