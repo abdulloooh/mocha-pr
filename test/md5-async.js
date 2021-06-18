@@ -1,10 +1,10 @@
 const {expect} = require("chai")
 const md5Promise = require("../src/md5-promise")
 
-setTimeout(() => {
-    console.log("tests delayed for 5s")    
-    run()
-}, 5000);
+// setTimeout(() => {
+//     console.log("tests delayed for 5s")    
+//     run()
+// }, 5000);
 
 describe("#md5AsyncAwait", function(){
     context("with string arguments", function(){

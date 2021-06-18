@@ -1,26 +1,37 @@
-const {connect, close: closeConnection} = require("../../src/db/mongodb/connect")
+process.env.STAGE = "test"
+
+const {init, close: closeConnection} = require("../../src/db/mongodb/connect")
 const User = require("../../src/db/mongodb/models/user")
 const {addUser,getUsers} = require("../../src/db/mongodb/index")
-const { expect } = require("chai")
 
+const { expect } = require("chai")
+const mongoUnit = require("mongo-unit")
 
 
 // root level suite
-connect()
-    .then(()=>{
-        console.log("connected to database testing...")
-
-        User.deleteMany(function(err) { 
-            if(err) return done(err)
-
-            console.log('collection removed') 
-            console.log("Tests starting...")
-            
-            run()
-        });
-    })
+mongoUnit.start().then(() => {
+  console.log('fake mongo is started: ', mongoUnit.getUrl())
+  process.env.TESTDB_URL = mongoUnit.getUrl()
+  run()
+})
 
 describe.only("#mongobdTest", function(){
+
+    before((done) => {
+        init()
+            .then(()=>{
+                console.log("connected to testing database...")
+                console.log("Tests starting...")
+                done()
+            })
+            .catch(err=>{
+                console.log(err)
+                done(err)
+            })
+    })
+
+    // beforeEach(() => mongoUnit.load(testData))
+    afterEach(() => mongoUnit.drop())
 
     describe("#AddUser", function(){
         context("#Add valid user with name", function(){
@@ -83,22 +94,23 @@ describe.only("#mongobdTest", function(){
     })
 
 
-     after(function(done){
-        User.deleteMany(function(err) { 
-            if(err) return done(err)
+    //  after(function(done){
+    //     User.deleteMany(function(err) { 
+    //         if(err) return done(err)
 
-            console.log('collection removed') 
-            console.log("Tests ended")
+    //         console.log('collection removed') 
+    //         console.log("Tests ended")
 
-            closeConnection().then(()=>console.log("connection cloosed"))
+    //         closeConnection().then(()=>console.log("connection cloosed"))
 
-            done()
-        });
-    })
+    //         done()
+    //     });
+    // })
 })
 
 // root - level suite
-after(function(done){
-    closeConnection().then(()=>console.log("connection closed"))
-    done()
+after(function(){
+    closeConnection()
+    console.log("stop mongounit")
+    return mongoUnit.stop()
 });

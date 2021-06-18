@@ -1,8 +1,11 @@
 const User = require("./models/user")
 
-const {connect} = require("./connect")
+const {init} = require("./connect")
 
-connect().then(()=>console.log("connected to database testing..."))
+!process.env.STAGE && 
+    init()
+        .then(()=>console.log("connected to mongodb successfully..."))
+        .catch(err=>{throw err})
 
 async function addUser(user){
     const res = await new User(user).save()
